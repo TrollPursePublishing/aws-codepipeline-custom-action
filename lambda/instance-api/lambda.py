@@ -80,6 +80,12 @@ def start_instance(event):
         MaxCount=1,
         InstanceType=instance_type,
         # KeyName = key_name,
+        BlockDeviceMappings=[
+          {
+            DeviceName: "/dev/xvda",
+            Ebs: { VolumeSize: 600 }
+          }
+        ],
         IamInstanceProfile={
             'Arn': BUILDER_INSTANCE_PROFILE_ARN
         },
