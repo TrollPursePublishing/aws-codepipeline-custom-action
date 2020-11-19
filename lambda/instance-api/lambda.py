@@ -69,7 +69,6 @@ def start_instance(event):
     # Get parameters from event 
     image_id = event.get('imageId', '')
     instance_type = event.get('instanceType', '')
-    key_name = event.get('keyName', '')
 
     # TODO: validate parameters
 
@@ -79,11 +78,10 @@ def start_instance(event):
         MinCount=1,
         MaxCount=1,
         InstanceType=instance_type,
-        # KeyName = key_name,
         BlockDeviceMappings=[
           {
-            DeviceName: "/dev/xvda",
-            Ebs: { VolumeSize: 600 }
+            'DeviceName': '/dev/xvda',
+            'Ebs': { 'VolumeSize': 600 }
           }
         ],
         IamInstanceProfile={
@@ -97,9 +95,6 @@ def start_instance(event):
             }]
         }]
     )
-
-    # Log response
-    # print("Response: " + json.dumps(instances, indent=2))
 
     instances = response.get('Instances', [])
     if not instances:
@@ -122,9 +117,6 @@ def stop_instance(event):
     response = ec2.terminate_instances(
         InstanceIds=[instance_id]
     )
-
-    # Log response
-    # print("Response: " + json.dumps(response, indent=2))
 
     instances = response.get('TerminatingInstances', [])
     if not instances:
@@ -168,9 +160,6 @@ def check_instance_status_ec2(event):
     response = ec2.describe_instances(
         InstanceIds=[instance_id]
     )
-
-    # Log response
-    # print("Response: " + json.dumps(response, indent=2))
 
     reservations = response.get('Reservations', [])
     if not reservations:
