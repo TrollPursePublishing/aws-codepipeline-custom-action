@@ -80,7 +80,7 @@ def start_instance(event):
         InstanceType=instance_type,
         BlockDeviceMappings=[
           {
-            'DeviceName': '/dev/xvda',
+            'DeviceName': '/dev/sda1',
             'Ebs': { 'VolumeSize': 600 }
           }
         ],
