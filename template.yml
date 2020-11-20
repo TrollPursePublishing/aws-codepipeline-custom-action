@@ -49,6 +49,13 @@ Parameters:
   CustomActionProviderVersion:
     Type: String
     Description: Version of the custom action provider (used in CodePipeline Console UI).
+    
+Outputs:
+  CustomActionProviderVersion:
+    Description: Latest Version of the Custom Action
+    Value: !Ref CustomActionProviderVersion
+    Export:
+      Name: !Sub "${CustomActionProviderName}-LatestVersion"
 
 Resources: 
 
