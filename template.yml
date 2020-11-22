@@ -178,7 +178,14 @@ Resources:
           Required: false
           Secret: false
           Queryable: false
-          Type: String 
+          Type: String
+        - Name: Timeout 
+          Description: Execution Timeout for the build in seconds.
+          Key: true 
+          Required: false
+          Secret: false
+          Queryable: false
+          Type: Number 
       InputArtifactDetails: 
         MaximumCount: 1
         MinimumCount: 0

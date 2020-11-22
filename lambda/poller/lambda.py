@@ -195,6 +195,7 @@ def start_job_flow(job_id, job):
     instance_type = configuration.get('InstanceType')
     command_text = configuration.get('Command')
     working_directory = configuration.get('WorkingDirectory', '')
+    timeout = configuration.get('Timeout', 3600)
     output_artifact_path = configuration.get('OutputArtifactPath', '')   
 
     pipeline_context = get_job_attribute(job, 'pipelineContext', {})
@@ -229,7 +230,7 @@ def start_job_flow(job_id, job):
             "command": {
                 "commandText": command_text,
                 "workingDirectory": working_directory,
-                "timeout": 3600
+                "timeout": timeout
             }
         }
     }
