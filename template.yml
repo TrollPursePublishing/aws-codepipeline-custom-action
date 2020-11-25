@@ -66,7 +66,10 @@ Resources:
   # CodePipeline Polling Function
   CodePipelinePoller:
     Type: AWS::Serverless::Function
+    DependsOn:
+      - CodePipelinePollerLogGroup #DependsOn this because this can trigger before the log group is created
     Properties:
+      FunctionName: !Sub "${AWS::StackName}-CodePipelinePoller"
       Description: Polls CodePipeline for Custom Actions.
       CodeUri: lambda/poller
       Handler: lambda.lambda_handler
@@ -121,7 +124,7 @@ Resources:
   CodePipelinePollerLogGroup:
     Type: AWS::Logs::LogGroup
     Properties: 
-      LogGroupName: !Sub "/aws/lambda/${CodePipelinePoller}"
+      LogGroupName: !Sub "/aws/lambda/${AWS::StackName}-CodePipelinePoller"
       RetentionInDays: 7
 
   # CodePipeline Custom Action
