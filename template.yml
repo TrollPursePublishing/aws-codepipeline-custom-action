@@ -1,6 +1,23 @@
 AWSTemplateFormatVersion: 2010-09-09
 Transform: 'AWS::Serverless-2016-10-31'
 Description: Custom AWS CodePipeline action that enables EC2 build nodes.
+Metadata: 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups: 
+      - Label: 
+          default: "Custom Action Settings"
+        Parameters: 
+          - CustomActionProviderName
+          - CustomActionProviderCategory
+          - CustomActionProviderVersion
+    ParameterLabels: 
+      CustomActionProviderName:
+        default: "Custom Action Provider Name"
+      CustomActionProviderCategory:
+        default: "Custom Action Provider Category"
+      CustomActionProviderVersion:
+        default: "Custom Action Provider Version"
+
 Parameters: 
   CustomActionProviderName:
     Type: String
@@ -21,7 +38,7 @@ Parameters:
     Type: String
     Description: Version of the custom action provider (used in CodePipeline Console UI).
 
-Resources:
+Resources: 
 
   # Supporting Lambda Functions 
   JobCompletionHandler:
@@ -119,10 +136,10 @@ Resources:
       RetentionInDays: 7
 
   CodePipelinePollerLogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties: 
-      LogGroupName: !Sub "/aws/lambda/${CodePipelinePoller}"
-      RetentionInDays: 7
+   Type: AWS::Logs::LogGroup
+   Properties: 
+     LogGroupName: !Sub "/aws/lambda/${CodePipelinePoller}"
+     RetentionInDays: 7
 
   # CodePipeline Custom Action
   Ec2BuildActionType: 
